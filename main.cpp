@@ -2,9 +2,9 @@
 
 using namespace std;
 
-// Create Addition Function
+// Create Addition Function (add)
 
-// Create Multiplication Function
+// Create Multiplication Function (mult)
 
 int main()
 {
