@@ -29,6 +29,7 @@ class IntSLLNode
 };
 
 IntSLLNode* addTwoLists(IntSLLNode* num1, IntSLLNode* num2);
+IntSLLNode* multiplyTwoLists(IntSLLNode* num1, IntSLLNode* num2);
 
 class IntSLList 
 {
@@ -60,7 +61,6 @@ class IntSLList
 
 bool isInteger(const string str);
 bool inputVal(string &input, string &command, string &int1, string &int2);
-#endif
-
-
 void printList(IntSLLNode* head);
+
+#endif

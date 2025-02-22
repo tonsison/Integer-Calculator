@@ -31,7 +31,12 @@ int main()
   } 
   else if (command == "mult")
   {
-    // Implement multiplication logic here
+    IntSLList num1 = IntSLList::stringToList(int1);
+    IntSLList num2 = IntSLList::stringToList(int2);
+    IntSLLNode *result =
+        multiplyTwoLists(new IntSLLNode(*num1.getHead()), new IntSLLNode(*num2.getHead()));
+    cout << "Result: ";
+    printList(result);
   }
 
   return 0;

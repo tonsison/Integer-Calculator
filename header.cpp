@@ -9,11 +9,11 @@
 
 using namespace std;
 
-IntSLList::~IntSLList() 
+IntSLList::~IntSLList()
 {
-  while (head != nullptr) 
+  while (head != nullptr)
   {
-    IntSLLNode* temp = head;
+    IntSLLNode *temp = head;
     head = head->next;
     delete temp;
   }
@@ -176,7 +176,7 @@ IntSLList IntSLList::stringToList(const string &num)
   return list;
 }
 
-IntSLLNode* addTwoLists(IntSLLNode *num1, IntSLLNode *num2)
+IntSLLNode *addTwoLists(IntSLLNode *num1, IntSLLNode *num2)
 {
   IntSLLNode *res = nullptr;
   IntSLLNode *curr = nullptr;
@@ -301,4 +301,91 @@ void printList(IntSLLNode *head)
 IntSLLNode *IntSLList::getHead() const
 {
   return head;
+}
+
+IntSLLNode *multiplyTwoLists(IntSLLNode *num1, IntSLLNode *num2)
+{
+  if (num1 == nullptr || num2 == nullptr)
+    return nullptr;
+
+  // Reverse both lists to make multiplication easier
+  num1 = reverse(num1);
+  num2 = reverse(num2);
+
+  // Initialize result list
+  IntSLLNode *result = nullptr;
+  IntSLLNode *resultTail = nullptr;
+
+  // Initialize pointers for num1 and num2
+  IntSLLNode *ptr1 = num1;
+  IntSLLNode *ptr2 = num2;
+
+  // Initialize position of the current digit in the result
+  int position = 0;
+
+  // Traverse num2
+  while (ptr2 != nullptr)
+  {
+    int carry = 0;
+    IntSLLNode *tempResult = nullptr;
+    IntSLLNode *tempResultTail = nullptr;
+
+    // Add zeros for the current position
+    for (int i = 0; i < position; ++i)
+    {
+      if (tempResult == nullptr)
+      {
+        tempResult = new IntSLLNode(0);
+        tempResultTail = tempResult;
+      }
+      else
+      {
+        tempResultTail->next = new IntSLLNode(0);
+        tempResultTail = tempResultTail->next;
+      }
+    }
+
+    // Traverse num1
+    ptr1 = num1;
+    while (ptr1 != nullptr)
+    {
+      int product = ptr1->info * ptr2->info + carry;
+      carry = product / 10;
+      product = product % 10;
+
+      if (tempResult == nullptr)
+      {
+        tempResult = new IntSLLNode(product);
+        tempResultTail = tempResult;
+      }
+      else
+      {
+        tempResultTail->next = new IntSLLNode(product);
+        tempResultTail = tempResultTail->next;
+      }
+
+      ptr1 = ptr1->next;
+    }
+
+    // If there is a carry left
+    if (carry > 0)
+    {
+      tempResultTail->next = new IntSLLNode(carry);
+    }
+
+    // Add tempResult to the result
+    result = addTwoLists(result, tempResult);
+
+    // Move to the next position
+    ++position;
+    ptr2 = ptr2->next;
+  }
+
+  // Reverse the result to get the final product
+  result = reverse(result);
+
+  // Trim leading zeros
+  result = trimLeadingZeros(result);
+
+  return result;
 }
