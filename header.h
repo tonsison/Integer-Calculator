@@ -28,6 +28,8 @@ class IntSLLNode
     }
 };
 
+IntSLLNode* addTwoLists(IntSLLNode* num1, IntSLLNode* num2);
+
 class IntSLList 
 {
   public:
@@ -47,21 +49,18 @@ class IntSLList
     void deleteNode(int);
     bool isInList(int) const;
     bool isIdentical(const IntSLList &sll) const;
+    static IntSLList stringToList(const string& num);
+    IntSLLNode *getHead() const;
+
+    
   private:
     IntSLLNode *head, *tail;
 };
 
-class LargeInt
-{
-private:
-public:
-  LargeInt &operator=(const LargeInt &li);
-  LargeInt operator+(const LargeInt &li) const;
-  LargeInt operator*(const LargeInt &li) const;
-  LargeInt setLargeInt(const string &largeint);
-
-};
 
 bool isInteger(const string str);
 bool inputVal(string &input, string &command, string &int1, string &int2);
 #endif
+
+
+void printList(IntSLLNode* head);

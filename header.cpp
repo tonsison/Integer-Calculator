@@ -9,13 +9,13 @@
 
 using namespace std;
 
-IntSLList::~IntSLList()
+IntSLList::~IntSLList() 
 {
-  for (IntSLLNode *p; head != nullptr;)
+  while (head != nullptr) 
   {
-    p = head->next;
-    delete head;
-    head = p;
+    IntSLLNode* temp = head;
+    head = head->next;
+    delete temp;
   }
 }
 
@@ -138,15 +138,6 @@ bool IntSLList::isIdentical(const IntSLList &sll) const
   return tmp == nullptr && tmp2 == nullptr;
 }
 
-LargeInt LargeInt::setLargeInt(const string &largeint)
-{
-  IntSLList sll;
-  for (char c : largeint)
-  {
-    sll.addToHead(c - '0'); // subtracting '0' converts char to int
-  }
-}
-
 IntSLLNode *reverse(IntSLLNode *head)
 {
   IntSLLNode *prev = nullptr, *curr = head, *next;
@@ -163,14 +154,32 @@ IntSLLNode *reverse(IntSLLNode *head)
 
 IntSLLNode *trimLeadingZeros(IntSLLNode *head)
 {
+  if (head == nullptr)
+    return nullptr; // Check for nullptr
+
   while (head->next != nullptr && head->info == 0)
     head = head->next;
   return head;
 }
 
-IntSLLNode *addTwoLists(IntSLLNode *num1, IntSLLNode *num2)
+// Function to convert a string to a linked list
+IntSLList IntSLList::stringToList(const string &num)
 {
-  IntSLLNode *res = nullptr, *curr = nullptr;
+  IntSLList list;
+  for (char digit : num)
+  {
+    if (isdigit(digit))
+    {
+      list.addToHead(digit - '0');
+    }
+  }
+  return list;
+}
+
+IntSLLNode* addTwoLists(IntSLLNode *num1, IntSLLNode *num2)
+{
+  IntSLLNode *res = nullptr;
+  IntSLLNode *curr = nullptr;
   int carry = 0;
 
   num1 = trimLeadingZeros(num1);
@@ -186,13 +195,17 @@ IntSLLNode *addTwoLists(IntSLLNode *num1, IntSLLNode *num2)
     if (num1 != nullptr)
     {
       sum += num1->info;
+      IntSLLNode *tmp = num1;
       num1 = num1->next;
+      delete tmp; // Delete the node to avoid memory leak
     }
 
     if (num2 != nullptr)
     {
       sum += num2->info;
+      IntSLLNode *tmp = num2;
       num2 = num2->next;
+      delete tmp; // Delete the node to avoid memory leak
     }
 
     IntSLLNode *newNode = new IntSLLNode(sum % 10);
@@ -217,6 +230,9 @@ IntSLLNode *addTwoLists(IntSLLNode *num1, IntSLLNode *num2)
 // function for checking if string is an integer
 bool isInteger(const string str)
 {
+  if (str.empty())
+    return false; // Check for empty string
+
   size_t startIndex = 0;
   if (str[0] == '-')
   {
@@ -269,4 +285,20 @@ bool inputVal(string &input, string &command, string &int1, string &int2)
     cout << "\nInvalid input.\n";
     return false;
   }
+}
+
+// Function to print a linked list
+void printList(IntSLLNode *head)
+{
+  while (head != nullptr)
+  {
+    cout << head->info;
+    head = head->next;
+  }
+  cout << endl;
+}
+
+IntSLLNode *IntSLList::getHead() const
+{
+  return head;
 }

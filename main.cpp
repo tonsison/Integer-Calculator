@@ -12,10 +12,6 @@ using namespace std;
 int main()
 {
   string command, int1, int2;
-  LargeInt li1;
-  LargeInt li2;
-  LargeInt sum;
-  LargeInt product;
   string userInput;
 
   do
@@ -24,15 +20,18 @@ int main()
     getline(cin, userInput);
   } while (!inputVal(userInput, command, int1, int2));
 
-  // set LargeInt object
-  li1.setLargeInt(int1);
-  li2.setLargeInt(int2);
-
   if (command == "add")
   {
-    sum = li1 + li2;
-  }
+    IntSLList num1 = IntSLList::stringToList(int1);
+    IntSLList num2 = IntSLList::stringToList(int2);
+    IntSLLNode *result = addTwoLists(num1.getHead(), num2.getHead());
+    cout << "Result: ";
+    printList(result);
+  } // exception error at this line when destructor operator is called
   else if (command == "mult")
   {
+    // Implement multiplication logic here
   }
+
+  return 0;
 }
