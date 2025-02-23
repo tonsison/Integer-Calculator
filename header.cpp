@@ -116,8 +116,7 @@ void IntSLList::deleteNode(int el)
 bool IntSLList::isInList(int el) const
 {
   IntSLLNode *tmp;
-  for (tmp = head; tmp != 0 && !(tmp->info == el); tmp = tmp->next)
-    ;
+  for (tmp = head; tmp != 0 && !(tmp->info == el); tmp = tmp->next);
   return tmp != 0;
 }
 
@@ -155,10 +154,14 @@ IntSLLNode *reverse(IntSLLNode *head)
 IntSLLNode *trimLeadingZeros(IntSLLNode *head)
 {
   if (head == nullptr)
-    return nullptr; // Check for nullptr
+  {
+    return nullptr; 
+  }
 
   while (head->next != nullptr && head->info == 0)
+  {
     head = head->next;
+  }
   return head;
 }
 
@@ -229,12 +232,11 @@ IntSLLNode *addTwoLists(IntSLLNode *num1, IntSLLNode *num2)
 bool isInteger(const string str)
 {
   if (str.empty())
-    return false; // Check for empty string
+    return false; 
 
   size_t startIndex = 0;
   if (str[0] == '-')
   {
-    // A negative sign is allowed, but it should be only at the beginning
     startIndex = 1;
     if (str.length() == 1)
     {
@@ -304,23 +306,25 @@ IntSLLNode *IntSLList::getHead() const
 IntSLLNode *multiplyTwoLists(IntSLLNode *num1, IntSLLNode *num2)
 {
   if (num1 == nullptr || num2 == nullptr)
-    return new IntSLLNode(0); // If either number is 0, return 0.
+  {
+    return new IntSLLNode(0); 
+  }
 
-  // Reverse both lists
   num1 = reverse(num1);
   num2 = reverse(num2);
 
   // Initialize the result as nullptr
-  IntSLLNode *result = new IntSLLNode(0); // Start with 0 to handle cases where one number is 0.
+  IntSLLNode *result = new IntSLLNode(0); 
 
   IntSLLNode *ptr2 = num2;
-  int position = 0; // Position shift for each digit in num2
+  int position = 0; 
 
   // Traverse through each digit of num2
   while (ptr2 != nullptr)
   {
     int carry = 0;
-    IntSLLNode *tempResult = nullptr; // Stores the partial product
+    // Stores the partial product
+    IntSLLNode *tempResult = nullptr; 
 
     // Add leading zeros according to the position in the result
     for (int i = 0; i < position; ++i)
@@ -358,11 +362,9 @@ IntSLLNode *multiplyTwoLists(IntSLLNode *num1, IntSLLNode *num2)
 
     // Move to the next position
     ptr2 = ptr2->next;
-    ++position;
+    position++;
   }
 
-
-  // Trim leading zeros
   result = trimLeadingZeros(result);
 
   return result;
