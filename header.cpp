@@ -170,7 +170,7 @@ IntSLList IntSLList::stringToList(const string &num)
   {
     if (isdigit(digit))
     {
-      list.addToHead(digit - '0');
+      list.addToTail(digit - '0');
     }
   }
   return list;
@@ -197,7 +197,6 @@ IntSLLNode *addTwoLists(IntSLLNode *num1, IntSLLNode *num2)
       sum += num1->info;
       IntSLLNode *tmp = num1;
       num1 = num1->next;
-      delete tmp; // Delete the node to avoid memory leak
     }
 
     if (num2 != nullptr)
@@ -205,7 +204,6 @@ IntSLLNode *addTwoLists(IntSLLNode *num1, IntSLLNode *num2)
       sum += num2->info;
       IntSLLNode *tmp = num2;
       num2 = num2->next;
-      delete tmp; // Delete the node to avoid memory leak
     }
 
     IntSLLNode *newNode = new IntSLLNode(sum % 10);
